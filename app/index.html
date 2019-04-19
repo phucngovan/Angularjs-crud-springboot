@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Angularjs</title>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+  <script src="core/version/version.js"></script>
+  <script src="core/version/version-directive.js"></script>
+  <script src="core/version/interpolate-filter.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<div class="" ng-app="myApp" ng-controller="UserCtrl">
+  <div class="w3-container">
+
+    <h1>Users</h1>
+    <p>Type a letter in the input field:</p>
+
+    <p><input type="text" ng-model="test"></p>
+    <table class="w3-table w3-bordered w3-striped">
+      <tr>
+        <th>Edit</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Salary</th>
+        <th>Delete</th>
+      </tr>
+      <tr ng-repeat="user in users| filter:test">
+        <td>
+          <button class="w3-btn w3-ripple" ng-click="updateUser(user.id,user.name,user.age,user.salary)">&#9998; Edit</button>
+        </td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.age }}</td>
+        <td>{{ user.salary }}</td>
+        <td>
+          <button class="" ng-click="deleteOneUser(user.id)" abc="{{user.id}}">X</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br>
+
+  <form>
+    <h2>Add User</h2>
+    <label>Name:</label>
+    <input class="w3-input w3-border" type="text" ng-model="name"  placeholder="Name">
+    <br>
+    <label>Age:</label>
+    <input class="w3-input w3-border" type="text" ng-model="age"  placeholder="Age">
+    <br>
+    <label>Salary:</label>
+    <input class="w3-input w3-border" type="text" ng-model="salary"  placeholder="Salary">
+    <br>
+    <button class="w3-btn w3-green w3-ripple" ng-click="addUser(user.name, user.age, user.salary)">&#9998; Create New User</button>
+  </form>
+
+
+</div>
+</body>
+</html>

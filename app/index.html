@@ -78,7 +78,7 @@
     <tbody>
       <tr ng-repeat="user in users| filter:search">
         <td>
-          <button class="w3-btn w3-ripple" data-toggle="modal" data-target="#exampleModalCenter">&#9998; Edit</button>
+          <button class="w3-btn w3-ripple" data-toggle="modal" data-target="#exampleModalCenter" ng-click="openEditPopup(user)">&#9998; Edit</button>
           <!-- Modal -->
           <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -89,24 +89,24 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form>
                 <div class="modal-body">
+                    <form class="w3-container">
                   <label>Id</label>
-                  <input class="w3-input" type="text" ng-model="user.id">
+                  <input class="w3-input" type="text" ng-model="editUser.id">
 
                   <label>Name</label>
-                  <input class="w3-input" type="text" ng-model="user.name">
+                  <input class="w3-input" type="text" ng-model="editUser.name">
 
                   <label>Age</label>
-                  <input class="w3-input" type="text" ng-model="user.age">
+                  <input class="w3-input" type="text" ng-model="editUser.age">
                   <label>Salary</label>
-                  <input class="w3-input" type="text" ng-model="user.salary">
+                  <input class="w3-input" type="text" ng-model="editUser.salary">
+                    </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button  type="button" class="btn btn-primary" ng-click="updateUser(user.id,user.name,user.age,user.salary)">Save changes</button>
                 </div>
-                </form>
               </div>
             </div>
           </div>

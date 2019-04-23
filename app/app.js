@@ -22,7 +22,9 @@ app.controller('UserCtrl', ['$scope', '$http',
                         }
                     });
         };
-
+        $scope.openEditPopup = function (user){
+            $scope.editUser = JSON.parse(JSON.stringify(user));
+        }
         $scope.addUser = function (name, age, salary) {
                 return $http({
                     method : 'POST',

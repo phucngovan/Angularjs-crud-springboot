@@ -2,15 +2,11 @@
 var app = angular.module("myApp", []);
 app.controller('UserCtrl', ['$scope', '$http',
     function ($scope, $http) {
-        $scope.edit = true;
-        $scope.error = false;
-        $scope.incomplete = false;
-        $scope.hideform = true;
         $scope.users = [];
         $scope.getUser = function (id) {
             $http({
                 method : 'GET',
-                url : 'http://localhost:8080/api/user/' + userId
+                url : 'http://localhost:8080/api/user/' + id
             }).then(function success(response) {
                         $scope.user = response.data;
                         $scope.user.id = id;
@@ -26,8 +22,8 @@ app.controller('UserCtrl', ['$scope', '$http',
                         }
                     });
         };
+
         $scope.addUser = function (name, age, salary) {
-            if ($scope.user != null && $scope.user.name) {
                 return $http({
                     method : 'POST',
                     url : 'http://localhost:8080/api/user/',
@@ -39,23 +35,22 @@ app.controller('UserCtrl', ['$scope', '$http',
                 }).then(function success(response) {
                             $scope.message = 'User added!';
                             $scope.errorMessage = '';
+                            $scope.getAllUsers();
 
-                        },
+
+                    },
                         function error(response) {
                             $scope.errorMessage = 'Error adding user!';
                             $scope.message = '';
-                            $scope.getAllUsers();
                         });
-            } else {
-                $scope.errorMessage = 'Please enter a name!';
-                $scope.message = '';
-            }
         };
-        $scope.updateUser = function (id, name, age, salary) {
+
+        $scope.updateUser = function ( id,name, age, salary) {
             return $http({
                 method : 'PATCH',
                 url : 'http://localhost:8080/api/user/' + id,
                 data : {
+                    id: id,
                     name : name,
                     age : age,
                     salary: salary
@@ -105,4 +100,6 @@ app.controller('UserCtrl', ['$scope', '$http',
             $scope.getAllUsers();
         }
         $scope.init();
+
+
     }]);

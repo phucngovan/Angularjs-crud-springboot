@@ -24,7 +24,8 @@ app.controller('UserCtrl', ['$scope', '$http',
         };
         $scope.openEditPopup = function (user){
             $scope.editUser = JSON.parse(JSON.stringify(user));
-        }
+        };
+        // fix loi khong  lay dc id do click cua modal
         $scope.addUser = function (name, age, salary) {
                 return $http({
                     method : 'POST',
@@ -39,7 +40,6 @@ app.controller('UserCtrl', ['$scope', '$http',
                             $scope.errorMessage = '';
                             $scope.getAllUsers();
 
-
                     },
                         function error(response) {
                             $scope.errorMessage = 'Error adding user!';
@@ -47,10 +47,10 @@ app.controller('UserCtrl', ['$scope', '$http',
                         });
         };
 
-        $scope.updateUser = function ( id,name, age, salary) {
+        $scope.updateUser = function (id,name, age, salary) {
             return $http({
                 method : 'PATCH',
-                url : 'http://localhost:8080/api/user/' + id,
+                url : 'http://localhost:8080/api/user/' +id,
                 data : {
                     id: id,
                     name : name,
@@ -60,10 +60,13 @@ app.controller('UserCtrl', ['$scope', '$http',
             }).then(function success(response) {
                         $scope.message = 'User data updated!';
                         $scope.errorMessage = '';
+                        $scope.getAllUsers();
+                        $("#exampleModalCenter").modal("hide");
                     },
                     function error(response) {
                         $scope.errorMessage = 'Error updating user!';
                         $scope.message = '';
+                        // $scope.getAllUsers();
                     });
         }
 
@@ -102,6 +105,5 @@ app.controller('UserCtrl', ['$scope', '$http',
             $scope.getAllUsers();
         }
         $scope.init();
-
 
     }]);

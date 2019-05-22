@@ -27,7 +27,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
@@ -47,20 +47,35 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <form class="w3-container">
+                            <form class="w3-container" name="myForm">
                                 <!--<label>Id</label>-->
                                 <!--<input class="w3-input" type="text" ng-model="id">-->
                                 <label>Name</label>
-                                <input class="w3-input" type="text" ng-model="name">
+                                <span style="color: red" ng-show="myForm.name.$error.required">The name is required.</span>
+                                <input class="w3-input" type="text" name="name" ng-model="name" required>
                                 <label>Age</label>
-                                <input class="w3-input" type="text" ng-model="age">
+                                <span style="color: red" ng-show="myForm.age2.$error.pattern">age 18-99.</span>
+                                <input class="w3-input" type="text" name="age2" ng-model="age" ng-pattern="regexAge">
                                 <label>Salary</label>
                                 <input class="w3-input" type="text" ng-model="salary">
-
+                                <label>Email</label>
+                                <span style="color: red" ng-show="myForm.email.$touched && myForm.email.$invalid">valid email.</span>
+                                <input class="w3-input" type="email" name="email" ng-model="email">
+                                <label>Image</label>
+                                <input class="w3-input" type="text" ng-model="image">
+                                <label>Phone</label>
+                                <span style="color:Red" ng-show="myForm.pincode.$error.required"> Required! </span>
+                                <span style="color:Red" ng-show="myForm.pincode.$dirty&&myForm.pincode.$error.pattern">Valid Phone!</span>
+                                <input class="w3-input" type="text" name="pincode" ng-model="phone" ng-pattern="regexPhone" required >
+                                <label>Address</label>
+                                <input class="w3-input" type="text" ng-model="address">
+                                <label>Gender</label><br>
+                                <input  type="radio" ng-model="gender" value="male">Male
+                                <input  type="radio" ng-model="gender" value="female">Female
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button ng-click="addUser(name,age,salary)" type="button" class="btn btn-default"
+                            <button ng-click="addUser(name, age, salary,email,address,gender,phone,image)" type="button" class="btn btn-default"
                                     data-dismiss="modal" style="background: pink">CREATE
                             </button>
                         </div>
@@ -77,7 +92,6 @@
         <br>
         <h1 style="color: brown" class="">List User</h1>
         </br>
-
         <table class="table">
             <thead class="thead-dark">
             <tr>
@@ -117,12 +131,24 @@
                                         <input class="w3-input" type="text" ng-model="editUser.age">
                                         <label>Salary</label>
                                         <input class="w3-input" type="text" ng-model="editUser.salary">
+                                        <label>Email</label>
+                                        <span style="color: red" ng-show="myForm.email.$touched && myForm.email.$invalid">valid email.</span>
+                                        <input class="w3-input" type="email" name="email" ng-model="editUser.email">
+                                        <label>Address</label>
+                                        <input class="w3-input" type="text" ng-model="editUser.address">
+                                        <label>Phone</label>
+                                        <input class="w3-input" type="text" ng-model="editUser.phone">
+                                        <label>Image</label>
+                                        <input class="w3-input" type="text" ng-model="editUser.image">
+                                        <label>Gender</label><br>
+                                        <input  type="radio" ng-model="editUser.gender" value="male">Male
+                                        <input  type="radio" ng-model="editUser.gender" value="female">Female<br>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary"
-                                            ng-click="updateUser(editUser.id,editUser.name,editUser.age,editUser.salary)">
+                                            ng-click="updateUser(editUser.id,editUser.name,editUser.age,editUser.salary,editUser.email,editUser.address,editUser.phone,editUser.image,editUser.gender)">
                                         Save changes
                                     </button>
                                 </div>
@@ -134,7 +160,7 @@
                 <th scope="row">{{user.id}}</th>
                 <td>
                     <div style="background: aquamarine" data-toggle="modal" data-target="#exampleModal"
-                         ng-click="jqueryShow(user)">{{ user.name }}
+                         ng-click="modalDetail(user)">{{ user.name }}
                     </div>
                 </td>
                 <td>{{ user.age }}</td>
@@ -152,7 +178,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Detail User</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
